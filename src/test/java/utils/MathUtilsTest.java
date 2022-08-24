@@ -3,29 +3,34 @@ package utils;
 import com.junit.utils.Employee;
 import com.junit.utils.Manager;
 import com.junit.utils.MathUtils;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.platform.commons.util.StringUtils;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 public class MathUtilsTest {
+    @Rule
+    public MockitoRule rule = MockitoJUnit.rule();
 
     @Mock
-    private Employee employee = new Employee(2, "Nitin", "Architect");
+    private Employee employee;
+
+    @InjectMocks
+    private MathUtils mathUtils;
 
     @Mock
-    private MathUtils mathUtils = new MathUtils();
-
-    @Mock
-    Manager manager = new Manager(employee, 6);
+    Manager manager;
 
     @BeforeEach
     void initEach() {
-        mathUtils = new MathUtils();
+        //NO OP
     }
 
     @Test
@@ -39,29 +44,28 @@ public class MathUtilsTest {
     }
 
     @Test
-    public void testEmployee() {
-        assertEquals("Architect", employee.getRole(), "Role is not correct.");
-    }
-
-    @Test
     public void testIsNamePresentForEmployee() {
+        when(employee.getName()).thenReturn("MockName");
         assertFalse(StringUtils.isBlank(employee.getName()), "Employee name cannot be blank.");
     }
 
     @Test
     public void testIsRolePresentForEmployee() {
-        //when(employee1.getRole()).thenReturn("Manager");
+        when(employee.getRole()).thenReturn("Architect");
         assertEquals("Architect", employee.getRole(), "Employee role cannot be blank.");
     }
 
     @Test
     public void testIsNumberOfProjectsGreaterThanFive() {
-        //when(manager.getNumberOfProjects()).thenReturn(6);
-        assertEquals(true, manager.isNumberOfProjectGreaterThanFive(), "Project should be greater than 5.");
+        when(manager.isNumberOfProjectGreaterThanFive()).thenReturn(true);
+        //manager.setNumberOfProjects(6);
+        assertAll(
 
-        assertEquals(true, manager instanceof Manager, "manager should be instance of Manager.");
+                () -> assertEquals(true, manager.isNumberOfProjectGreaterThanFive(), "Project should be greater than 5."),
 
-        assertFalse(employee instanceof Manager, "manager should be instance of Manager.");
+                () -> assertEquals(true, manager instanceof Manager, "manager should be instance of Manager."),
+
+                () -> assertFalse(employee instanceof Manager, "manager should be instance of Manager."));
     }
 
 }
