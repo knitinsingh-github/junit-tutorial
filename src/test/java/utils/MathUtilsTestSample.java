@@ -3,9 +3,7 @@ package utils;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.junit.utils.MathUtils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 class MathUtilsTestSample {
 
@@ -54,6 +52,7 @@ class MathUtilsTestSample {
     }
 
     @Test
+    @DisplayName("Divide")
     void testDivide() {
         assertThrows(ArithmeticException.class, () -> mathUtils.divide(1, 0),
                 "Divide should throw ArithmeticException when denominator is zero");

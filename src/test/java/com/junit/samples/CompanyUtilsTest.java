@@ -2,6 +2,8 @@ package com.junit.samples;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
@@ -18,13 +20,19 @@ public class CompanyUtilsTest {
     @Mock
     Employee employee;
 
+
+
     @Mock
     Manager manager;
+
+    //Manager manager1 = new Manager(0, null, 0L);
 
     @InjectMocks
     CompanyUtils companyUtils;
 
     @Test
+    @DisplayName("Salary Greater ThanX")
+    @Disabled
     public void testIsManagerSalaryGreaterThanX() {
         when(manager.getSalary()).thenReturn(5000001L);
         boolean isManagersWithSalaryGreaterThanX = companyUtils.isManagersWithSalaryGreaterThanX(manager, 5000000L);

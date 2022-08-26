@@ -30,7 +30,7 @@ public class MathUtilsTest {
 
     @BeforeEach
     void initEach() {
-        //NO OP
+        System.out.println("Inside initEach()");
     }
 
     @Test
