@@ -2,7 +2,7 @@ package com.junit.utils;
 
 public class Game {
 
-    private Player player;
+    private final Player player;
 
     public Game(Player player) {
         this.player = player;
